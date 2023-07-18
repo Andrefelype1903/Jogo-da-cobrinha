@@ -1,0 +1,16 @@
+{
+    "name": "Jogo da cobrinha",
+    "short_name": "Jogo da cobrinha",
+    "icons": [
+        {
+            "src": "../imagens/snake.png",
+            "sizes": "192x192"
+        }
+    ],
+
+    "start_url": "../index.html",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "backgroud_color": "#ffffff"
+
+}

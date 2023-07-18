@@ -8,12 +8,12 @@ const baixo = document.querySelector('.baixo')
 const esquerda = document.querySelector('.esquerda')
 // botoes
 
-const size = 30;
+const size = 15;
 
 const snake = [
 
     {x:200, y:200},
-    {x:230, y:200},
+    {x:215, y:200},
     
 ];
 
@@ -35,6 +35,7 @@ baixo.addEventListener('click', () => {
 esquerda.addEventListener('click', () => {
     direction = 'left'
 })
+
 // botoes
 
 

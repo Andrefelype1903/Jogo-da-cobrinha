@@ -10,20 +10,24 @@
 
 
 body {
+    min-width: 100vw;
+    min-height: 100vh;
+    margin: auto;
     background-color: #191919;
     /* background-color: #fff; */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     align-items: center;
     justify-content: center;
     color: #fff;
 }
 
+
 canvas {
+    margin: 1px 10px;
     background: #111;
-    padding: 100px;
     border: 1px solid #fff;
+    
 }
 
 .botoes {
@@ -33,6 +37,7 @@ canvas {
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     padding: 1px;
+    margin: 10px;
 }
 
 .direcao {
@@ -44,14 +49,16 @@ canvas {
 
 
 
-@media screen and(max-width:480px) {
+@media screen and (max-width:580px) {
     
     body {
         width: 100vw;
-        padding: 0 1%;
+        height: 100vh;
     }
     
+
     canvas {
-        min-width: 100%
+        width: 100%;
+        margin: 10px;
     }
 }

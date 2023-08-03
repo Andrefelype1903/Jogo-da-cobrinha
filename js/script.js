@@ -16,18 +16,32 @@ const snake = [
     
 ];
 
-let foodX = Math.round(Math.random() * 40)
-let foody = Math.round(Math.random() * 40)
-console.log(foodX)
-console.log(foody)
+const GeraCorAleatoria = () => {
+    const cores = ['cyan', 'yellow', 'red', 'orange', 'pink', 'green', 'purple'];
 
-const food = {x:foodX * size, y:foody * size, color:"yellow"}
+    let corAleatoria = cores[Math.round(Math.random() * cores.length)]
+
+    return corAleatoria
+
+}
+
+const randomNumber = () => {
+    return Math.round(Math.random() * 40);
+};
+
+const food = {x:randomNumber() * 15  , y:randomNumber() *15 , color: GeraCorAleatoria()}
 
 let direction, loopId;
 
 const drowFood = () => {
-  ctx.fillStyle = food.color;
-  ctx.fillRect(food.x, food.y, size, size)
+
+    const {x, y, color} = food
+
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 6;    
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, size, size)
+    ctx.shadowBlur = 0
 }
 
 

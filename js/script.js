@@ -26,10 +26,10 @@ const GeraCorAleatoria = () => {
 }
 
 const randomNumber = () => {
-    return Math.round(Math.random() * 40);
+    return Math.round(Math.random() * 40 - 1);
 };
 
-const food = {x:randomNumber() * 15  , y:randomNumber() *15 , color: GeraCorAleatoria()}
+const food = {x:randomNumber() * 15  , y:randomNumber() * 15 , color: GeraCorAleatoria()}
 
 let direction, loopId;
 
@@ -97,9 +97,8 @@ const drawGrid = () => {
     
       ctx.stroke();
   }
-
-
 }
+
 
 
 const gameLoop = () => {
@@ -165,4 +164,38 @@ document.addEventListener('keydown', ({key}) => {
     direction = "down"
   }
 
+})
+
+canvas.addEventListener('click', (event) => {
+
+    const rect = canvas.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+
+    const telaHorizontal = (event.clientX - rect.left) / width;
+    const telaVertical = (event.clientY - rect.top) / height;
+
+    const horizontal = telaHorizontal * 9 + 1
+    const vertical = telaVertical * 9 + 1
+
+    
+    console.log("horizontal = " + horizontal)
+    console.log("vertical = " + vertical)
+
+    if(horizontal > 5.5 && direction != 'rigth' && direction != 'left') {
+        direction = 'rigth'
+        return
+    }
+    if(horizontal < 5.5 && direction != 'left' && direction != 'rigth') {
+        direction = 'left'
+        return
+    }
+    if(vertical > 5.5 && direction != 'down' && direction != 'up') {
+        direction = 'down'
+        return
+    }
+    if(vertical < 5.5 && direction != 'up' && direction != 'down') {
+        direction = 'up'
+        return
+    }
 })

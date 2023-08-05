@@ -1,6 +1,9 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
+
+
+
 // botoes de direção
 const cima = document.querySelector('.cima')
 const esquerda = document.querySelector('.esquerda')
@@ -10,26 +13,49 @@ const baixo = document.querySelector('.baixo')
 
 const size = 15;
 
+const audio = new Audio('../assets/audio.mp3')
+
 const snake = [
     { x: 195, y: 195 },
     { x: 210, y: 195 },
     
 ];
 
-const GeraCorAleatoria = () => {
-    const cores = ['cyan', 'yellow', 'red', 'orange', 'pink', 'green', 'purple'];
 
-    let corAleatoria = cores[Math.round(Math.random() * cores.length)]
+// funçao reserva que gera  uma cor dentre opçoes definidas ↓
 
-    return corAleatoria
+// const GeraCorAleatoria = () => {
+//     const cores = ['cyan', 'yellow', 'red', 'orange', 'magenta', 'green', 'darkviolet', 'salmon'];
 
-}
+//     let corAleatoria = cores[Math.round(Math.random() * cores.length)]
 
-const randomNumber = () => {
-    return Math.round(Math.random() * 40 - 1);
+//     return corAleatoria
+
+// }
+
+// funçao reserva que gera  uma cor dentre opçoes definidas ↑
+
+
+const randomNumber = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min);
 };
 
-const food = {x:randomNumber() * 15  , y:randomNumber() * 15 , color: GeraCorAleatoria()}
+const randomPosition = () => {
+    const number = randomNumber(1, canvas.width - size);
+    return Math.round(number / size) * size;
+}
+
+const randomColor = () => {
+    const red = randomNumber(0, 255);
+    const green = randomNumber(0, 255);
+    const blue = randomNumber(0, 255);
+
+    return `rgb(${red},${green},${blue})`
+}
+
+
+
+const food = {x:randomPosition() , y:randomPosition() , color: randomColor()}
 
 let direction, loopId;
 
@@ -99,7 +125,51 @@ const drawGrid = () => {
   }
 }
 
+const checkEat = () => {
+    const head = snake[snake.length -1];
 
+    if(head.x === food.x && head.y === food.y) {
+        snake.push(head)
+
+        audio.play()
+
+        let x = randomPosition();
+        let y = randomPosition();
+
+        while(snake.find((position) => position.x === x && position.y === y)) {
+            x = randomPosition()
+            y = randomPosition()
+        }
+
+        food.x = x;
+        food.y = y;
+        food.color = randomColor()
+
+    }
+
+}
+
+const checkCollision = () => {
+    const head = snake[snake.length - 1];
+    const canvasLimit = canvas.width - size;
+    const neckIndex = snake.length - 2;
+
+    const wallCollision = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit;
+
+    const selfCollision = snake.find((position, index) => {
+        return index < neckIndex && position.x === head.x && position.y === head.y
+    })
+
+    if(wallCollision || selfCollision) {
+        gameOver()
+        alert('game over')
+    }
+    
+}
+
+const gameOver = () => {
+    direction = undefined
+}
 
 const gameLoop = () => {
 
@@ -113,6 +183,9 @@ const gameLoop = () => {
 
     moveSnake();
     drawSnake();
+    checkEat()
+
+    checkCollision()
 
     loopId = setTimeout(() => {
       gameLoop()
@@ -128,13 +201,16 @@ cima.addEventListener('click', () => {
 })
 
 esquerda.addEventListener('click', () => {
+    
+    if(direction === undefined) return
+
     if(direction != "rigth") {
         direction = "left"
     }
 })
 
 direita.addEventListener('click', () => {
-    if(direction != "left") {
+    if(direction != "left" ) {
         direction = "rigth"
     }
 })
@@ -152,7 +228,7 @@ document.addEventListener('keydown', ({key}) => {
     direction = "up"
   }
   
-  if(key === 'ArrowLeft' && direction != "rigth") {
+  if(key === 'ArrowLeft' && direction != "rigth" && direction != undefined) {
     direction = "left"
   }
 
@@ -167,6 +243,7 @@ document.addEventListener('keydown', ({key}) => {
 })
 
 canvas.addEventListener('click', (event) => {
+
 
     const rect = canvas.getBoundingClientRect()
     const width = rect.width
@@ -186,7 +263,7 @@ canvas.addEventListener('click', (event) => {
         direction = 'rigth'
         return
     }
-    if(horizontal < 5.5 && direction != 'left' && direction != 'rigth') {
+    if(horizontal < 5.5 && direction != 'left' && direction != 'rigth' && direction != undefined) {
         direction = 'left'
         return
     }

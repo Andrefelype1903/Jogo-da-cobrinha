@@ -33,7 +33,7 @@ const baixo = document.querySelector('.baixo')
 
 const size = 15;
 
-const audio = new Audio('../assets/audio.mp3')
+const audio = new Audio('./assets/audio.mp3')
 
 const snake = [
     { x: 195, y: 195 },

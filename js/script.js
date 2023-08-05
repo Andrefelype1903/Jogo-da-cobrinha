@@ -4,6 +4,25 @@ const ctx = canvas.getContext('2d');
 const h1 = document.querySelector('h1');
 
 
+const vel1 = document.querySelector('.vel1');
+const vel2 = document.querySelector('.vel2');
+const vel3 = document.querySelector('.vel3');
+
+let velocidade = 300
+
+vel1.addEventListener('click', () => {
+    velocidade = 300
+})
+
+vel2.addEventListener('click', () => {
+    velocidade = 200
+})
+
+vel3.addEventListener('click', () => {
+    velocidade = 100
+})
+
+
 
 // botoes de direção
 const cima = document.querySelector('.cima')
@@ -150,6 +169,24 @@ const checkEat = () => {
 
 }
 
+// const checkCollision = () => {
+//     const head = snake[snake.length - 1];
+//     const canvasLimit = canvas.width - size;
+//     const neckIndex = snake.length - 2;
+
+//     const wallCollision = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit;
+
+//     const selfCollision = snake.find((position, index) => {
+//         return index < neckIndex && position.x === head.x && position.y === head.y
+//     })
+
+//     if(wallCollision || selfCollision) {
+//         gameOver()
+//         h1.innerText = "GAME OVER"
+//     }
+    
+// }
+
 const checkCollision = () => {
     const head = snake[snake.length - 1];
     const canvasLimit = canvas.width - size;
@@ -161,9 +198,37 @@ const checkCollision = () => {
         return index < neckIndex && position.x === head.x && position.y === head.y
     })
 
-    if(wallCollision || selfCollision) {
+    if(selfCollision) {
         gameOver()
         h1.innerText = "GAME OVER"
+    }
+
+    if(head.y > 585) {
+        snake.forEach((position) => {
+            snake.x = 0
+            position.y = 0
+        })
+    }
+
+    if(head.y < 0) {
+        snake.forEach((position) => {
+            snake.x = 585
+            position.y = 585
+        })
+    }
+
+    if(head.x > 585) {
+        snake.forEach((position) => {
+            snake.y = 0
+            position.x = 0
+        })
+    }
+
+    if(head.x < 0) {
+        snake.forEach((position) => {
+            snake.y = 585
+            position.x = 585
+        })
     }
     
 }
@@ -190,7 +255,7 @@ const gameLoop = () => {
 
     loopId = setTimeout(() => {
       gameLoop()
-    },300)
+    },velocidade)
 }
 
 gameLoop()
@@ -277,3 +342,5 @@ canvas.addEventListener('click', (event) => {
         return
     }
 })
+
+

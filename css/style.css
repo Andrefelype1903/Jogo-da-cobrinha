@@ -22,6 +22,16 @@ body {
     color: #fff;
 }
 
+.velociade {
+    display: flex;
+    flex-direction: row;
+}
+
+.velocidade button {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
 
 canvas {
     margin: 1px 10px;

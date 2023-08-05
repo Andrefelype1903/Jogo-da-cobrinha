@@ -1,6 +1,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
+const h1 = document.querySelector('h1');
 
 
 
@@ -162,7 +163,7 @@ const checkCollision = () => {
 
     if(wallCollision || selfCollision) {
         gameOver()
-        alert('game over')
+        h1.innerText = "GAME OVER"
     }
     
 }

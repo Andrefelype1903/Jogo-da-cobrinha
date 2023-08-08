@@ -8,7 +8,13 @@ const vel1 = document.querySelector('.vel1');
 const vel2 = document.querySelector('.vel2');
 const vel3 = document.querySelector('.vel3');
 
-let velocidade = 300
+const comParede = document.querySelector('.com_parede');
+const semParede = document.querySelector('.sem_parede');
+
+
+
+let velocidade = 300;
+let parede = true;
 
 vel1.addEventListener('click', () => {
     velocidade = 300
@@ -20,6 +26,18 @@ vel2.addEventListener('click', () => {
 
 vel3.addEventListener('click', () => {
     velocidade = 100
+})
+
+comParede.addEventListener('click', () => {
+    comParede.classList.add('active');
+    semParede.classList.remove('active')
+    parede = true;
+})
+
+semParede.addEventListener('click', () => {
+    semParede.classList.add('active')
+    comParede.classList.remove('active')
+    parede = false;
 })
 
 
@@ -38,7 +56,6 @@ const audio = new Audio('./assets/audio.mp3')
 const snake = [
     { x: 195, y: 195 },
     { x: 210, y: 195 },
-    
 ];
 
 
@@ -203,34 +220,35 @@ const checkCollision = () => {
         h1.innerText = "GAME OVER"
     }
 
-    if(head.y > 585) {
-        snake.forEach((position) => {
-            snake.x = 0
-            position.y = 0
-        })
-    }
 
-    if(head.y < 0) {
-        snake.forEach((position) => {
-            snake.x = 585
-            position.y = 585
-        })
-    }
-
-    if(head.x > 585) {
-        snake.forEach((position) => {
-            snake.y = 0
-            position.x = 0
-        })
-    }
-
-    if(head.x < 0) {
-        snake.forEach((position) => {
-            snake.y = 585
-            position.x = 585
-        })
+    if(parede) {
+        if(wallCollision) {
+            gameOver()
+            h1.innerText = "GAME OVER"
+        }
+    } else {
+        for(let i = 0; i < snake.length; i++) {
+            if(snake[i].x > canvasLimit) {
+                snake[i].x = 0
+            }
+    
+            if(snake[i].y > canvasLimit) {
+                snake[i].y = 0
+            }
+    
+            if(snake[i].x < 0) {
+                snake[i].x = canvasLimit
+            }
+    
+            if(snake[i].y < 0) {
+                snake[i].y = canvasLimit
+            }
+    
+        }
     }
     
+
+
 }
 
 const gameOver = () => {

@@ -22,15 +22,23 @@ body {
     color: #fff;
 }
 
-.velociade {
+.velocidade, .parede {
     display: flex;
     flex-direction: row;
 }
 
-.velocidade button {
+
+
+.velocidade button, .parede button {
     padding: 5px;
-    margin-bottom: 5px;
+    margin: 5px;
 }
+
+.active {
+    background: #333;
+}
+
+
 
 
 canvas {

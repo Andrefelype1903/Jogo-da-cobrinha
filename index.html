@@ -6,6 +6,7 @@
     <title>Super Snake</title>
 
     <link rel="icon" href="./imagens/snake.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="./css/style.css">
     <script defer src="./js/script.js"></script>
@@ -14,7 +15,7 @@
 
 <body>
 
-    <div class="parede">
+    <!-- <div class="parede">
         <button class="com_parede">Com parede</button>
         <button class="sem_parede">Sem parede</button>
     </div>
@@ -22,8 +23,20 @@
         <button class="vel1">velocidade 1</button>
         <button class="vel2">velocidade 2</button>
         <button class="vel3">velocidade 3</button>
+    </div> -->
+    <div class="score">score: <span class="score--value">00</span></div>
+
+    <div class="menu-screen">
+        <span class="game-over">game over</span>
+        <span class="final-score">score <span>00</span></span>
+
+        <button class="btn-play">
+            <span class="material-symbols-outlined">
+                play_circle
+                </span>
+            jogar novamente
+        </button>
     </div>
-    <h1></h1>
     <canvas width="600" height="600"></canvas>
     <div class="botoes">
         <div class="direcao"></div>

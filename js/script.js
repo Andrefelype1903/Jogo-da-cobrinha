@@ -3,42 +3,47 @@ const ctx = canvas.getContext('2d');
 
 const h1 = document.querySelector('h1');
 
-
-const vel1 = document.querySelector('.vel1');
-const vel2 = document.querySelector('.vel2');
-const vel3 = document.querySelector('.vel3');
-
-const comParede = document.querySelector('.com_parede');
-const semParede = document.querySelector('.sem_parede');
+const score = document.querySelector('.score--value')
+const finalScore = document.querySelector('.final-score > span')
+const menu = document.querySelector('.menu-screen')
+const buttonPlay = document.querySelector('.btn-play')
 
 
+// const vel1 = document.querySelector('.vel1');
+// const vel2 = document.querySelector('.vel2');
+// const vel3 = document.querySelector('.vel3');
 
-let velocidade = 300;
+// const comParede = document.querySelector('.com_parede');
+// const semParede = document.querySelector('.sem_parede');
+
+
+
+let velocidade = 100;
 let parede = true;
 
-vel1.addEventListener('click', () => {
-    velocidade = 300
-})
+// vel1.addEventListener('click', () => {
+//     velocidade = 300
+// })
 
-vel2.addEventListener('click', () => {
-    velocidade = 200
-})
+// vel2.addEventListener('click', () => {
+//     velocidade = 200
+// })
 
-vel3.addEventListener('click', () => {
-    velocidade = 100
-})
+// vel3.addEventListener('click', () => {
+//     velocidade = 100
+// })
 
-comParede.addEventListener('click', () => {
-    comParede.classList.add('active');
-    semParede.classList.remove('active')
-    parede = true;
-})
+// comParede.addEventListener('click', () => {
+//     comParede.classList.add('active');
+//     semParede.classList.remove('active')
+//     parede = true;
+// })
 
-semParede.addEventListener('click', () => {
-    semParede.classList.add('active')
-    comParede.classList.remove('active')
-    parede = false;
-})
+// semParede.addEventListener('click', () => {
+//     semParede.classList.add('active')
+//     comParede.classList.remove('active')
+//     parede = false;
+// })
 
 
 
@@ -53,10 +58,15 @@ const size = 15;
 
 const audio = new Audio('./assets/audio.mp3')
 
-const snake = [
-    { x: 195, y: 195 },
-    { x: 210, y: 195 },
-];
+const initialPosition = { x: 195, y: 195 }
+
+
+
+let snake = [initialPosition];
+
+const incrementScore = () => {
+    score.innerText = +score.innerText + 10
+}
 
 
 // funçao reserva que gera  uma cor dentre opçoes definidas ↓
@@ -164,8 +174,10 @@ const drawGrid = () => {
 
 const checkEat = () => {
     const head = snake[snake.length -1];
+    // const neck = snake[snake.length - 2];
 
     if(head.x === food.x && head.y === food.y) {
+        incrementScore()
         snake.push(head)
 
         audio.play()
@@ -224,7 +236,6 @@ const checkCollision = () => {
     if(parede) {
         if(wallCollision) {
             gameOver()
-            h1.innerText = "GAME OVER"
         }
     } else {
         for(let i = 0; i < snake.length; i++) {
@@ -253,6 +264,11 @@ const checkCollision = () => {
 
 const gameOver = () => {
     direction = undefined
+
+    menu.style.display = 'flex';
+    finalScore.innerText = score.innerText;
+    canvas.style.filter = 'blur(2px)'
+
 }
 
 const gameLoop = () => {
@@ -306,7 +322,7 @@ baixo.addEventListener('click', () => {
 })
 
 document.addEventListener('keydown', ({key}) => {
-    // event.preventDefault()
+    event.preventDefault()
 
   if(key === 'ArrowUp' && direction != "down") {
     direction = "up"
@@ -359,6 +375,14 @@ canvas.addEventListener('click', (event) => {
         direction = 'up'
         return
     }
+})
+
+buttonPlay.addEventListener('click', () => {
+    score.innerText = '00';
+    menu.style.display = 'none';
+    canvas.style.filter = 'none';
+    snake = [initialPosition]
+
 })
 
 

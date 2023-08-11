@@ -8,43 +8,35 @@ const finalScore = document.querySelector('.final-score > span')
 const menu = document.querySelector('.menu-screen')
 const buttonPlay = document.querySelector('.btn-play')
 
+const spanPlayer = document.querySelector('.span_player > span')
 
-// const vel1 = document.querySelector('.vel1');
-// const vel2 = document.querySelector('.vel2');
-// const vel3 = document.querySelector('.vel3');
+const player = localStorage.getItem('player');
+console.log(player)
 
-// const comParede = document.querySelector('.com_parede');
-// const semParede = document.querySelector('.sem_parede');
-
+spanPlayer.innerText = player
 
 
-let velocidade = 100;
+
+let velocidade = 300;
 let parede = true;
 
-// vel1.addEventListener('click', () => {
-//     velocidade = 300
-// })
+const velocidadeRadio = localStorage.getItem('velocidade')
+const paredesSimNao = localStorage.getItem('paredesSimNao')
+const somOnOff = localStorage.getItem('somOnOff')
 
-// vel2.addEventListener('click', () => {
-//     velocidade = 200
-// })
+if(paredesSimNao === 'nao') {
+    parede = false
+}
 
-// vel3.addEventListener('click', () => {
-//     velocidade = 100
-// })
+if(velocidadeRadio === 'lento') {
+    velocidade = 300
+} else if(velocidadeRadio === 'medio') {
+    velocidade = 200
+} else if(velocidadeRadio === 'rapido') {
+    velocidade = 100;
+}
 
-// comParede.addEventListener('click', () => {
-//     comParede.classList.add('active');
-//     semParede.classList.remove('active')
-//     parede = true;
-// })
-
-// semParede.addEventListener('click', () => {
-//     semParede.classList.add('active')
-//     comParede.classList.remove('active')
-//     parede = false;
-// })
-
+console.log(paredesSimNao)
 
 
 // botoes de direção
@@ -56,13 +48,25 @@ const baixo = document.querySelector('.baixo')
 
 const size = 15;
 
-const audio = new Audio('./assets/audio.mp3')
+const audio = new Audio('../assets/audio.mp3')
 
 const initialPosition = { x: 195, y: 195 }
 
 
 
 let snake = [initialPosition];
+
+const incrementFast = () => {
+    if(snake.length === 10) {
+        velocidade = 200;
+    } else if(snake.length === 20) {
+        velocidade = 100
+    } else if(snake.length === 30) {
+        velocidade = 70
+    }
+}
+
+
 
 const incrementScore = () => {
     score.innerText = +score.innerText + 10
@@ -129,6 +133,9 @@ const drawSnake = () => {
 }
 
 const moveSnake = () => {
+
+    incrementFast()
+
     if(!direction) return;
     const head = snake[snake.length -1];
 
@@ -180,7 +187,9 @@ const checkEat = () => {
         incrementScore()
         snake.push(head)
 
-        audio.play()
+        if(somOnOff === 'sim') {
+            audio.play()
+        }
 
         let x = randomPosition();
         let y = randomPosition();
@@ -287,6 +296,8 @@ const gameLoop = () => {
 
     checkCollision()
 
+    
+
     loopId = setTimeout(() => {
       gameLoop()
     },velocidade)
@@ -322,7 +333,7 @@ baixo.addEventListener('click', () => {
 })
 
 document.addEventListener('keydown', ({key}) => {
-    event.preventDefault()
+    // event.preventDefault()
 
   if(key === 'ArrowUp' && direction != "down") {
     direction = "up"

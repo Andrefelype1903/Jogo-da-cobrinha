@@ -1,0 +1,73 @@
+
+@import url('https://fonts.cdnfonts.com/css/raslani-american-letters');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;                                        
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_header {
+    padding: 10px;
+}
+
+.login_header h1 {
+    color: #333;
+    text-transform: uppercase;
+    font-family: 'Raslani American letters', sans-serif;
+    font-size: 2.8rem;
+}
+
+.seu_nome {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #000;
+}
+
+.radios {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.input_velocidade, .input_paredes, .input_som {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.input_velocidade label,  .input_paredes label, .input_som label {
+    margin-right: 10px;
+}
+
+
+.button_submit {
+    width: 60%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -23,6 +23,20 @@ body {
     color: #fff;
 }
 
+header {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.span_player {
+    font-size: 1rem;
+}
+
 .velocidade, .parede {
     display: flex;
     flex-direction: row;
@@ -68,17 +82,16 @@ canvas {
 
 .score {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    font-size: 1.8em;
+    justify-content: center;
+    font-size: 1em;
     text-transform: uppercase;
 }
 
 .score--value {
     font-weight: 700;
-    font-size: 4.5rem;
+    font-size: 1rem;
     display: block;
-    margin-top: -20px;
 }
 
 .menu-screen {

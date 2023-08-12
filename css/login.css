@@ -5,14 +5,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #333;                                        
+    font-size: 1.1em;
+    color: #fafafa;                                        
+}
+
+h2 {
+    font-size: 1.3em;
+    text-align: center;
 }
 
 
 body {
     width: 100vw;
     height: 100vh;
-    background: #fafafa;
+    background: #212121;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,43 +37,186 @@ body {
 }
 
 .login_header h1 {
-    color: #333;
+    color: #fff;
     text-transform: uppercase;
     font-family: 'Raslani American letters', sans-serif;
     font-size: 2.8rem;
+    margin-bottom: 20px;
 }
 
-.seu_nome {
-    width: 100%;
-    padding: 10px;
+.main {
+    position: relative;
+    max-height: 200px;
+  }
+  
+  .input {
+    max-width: 190px;
     border: none;
-    border-radius: 10px;
-    margin: 20px 0;
-    border: 1px solid #000;
-}
+    border-bottom: solid gray 1px;
+    background: transparent;
+    outline: none;
+    padding: 10px;
+    transition: 0.2s;
+    color: #e8e8e8;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .input:focus , .input:valid {
+    border-color: lightblue;
+  }
+  
+  .span-name {
+    position: absolute;
+    top: 0px;
+    display: block;
+    transition: 0.2s;
+    pointer-events: none;
+    font-size: 25px;
+    color: gray;
+    opacity: 0%;
+  }
+  
+  .input:focus + label span ,.input:valid + label span {
+    color: lightblue;
+    top: -25px;
+    opacity: 100%;
+  }
+  
+  .input:focus + label p ,.input:valid + label p {
+    opacity: 0;
+  }
 
-.radios {
+
+.radio-buttons-container {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-}
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .radio-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .radio-button__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .radio-button__label {
+    display: inline-block;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    position: relative;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .radio-button__custom {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .radio-button__input:checked + .radio-button__label .radio-button__custom {
+    transform: translateY(-50%) scale(0.9);
+    border: 5px solid #4c8bf5;
+    color: #4c8bf5;
+  }
+  
+  .radio-button__input:checked + .radio-button__label {
+    color: #4c8bf5;
+  }
+  
+  .radio-button__label:hover .radio-button__custom {
+    transform: translateY(-50%) scale(1.2);
+    border-color: #4c8bf5;
+    box-shadow: 0 0 10px #4c8bf580;
+  }
+  
+  
 
-.input_velocidade, .input_paredes, .input_som {
+.button {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    background-color: #000;
     display: flex;
     align-items: center;
+    color: white;
+    flex-direction: column;
     justify-content: center;
-    margin: 10px;
-}
-
-.input_velocidade label,  .input_paredes label, .input_som label {
-    margin-right: 10px;
-}
-
-
-.button_submit {
-    width: 60%;
-    padding: 10px;
-    font-size: 1.2rem;
-    border-radius: 10px;
+    border: none;
+    padding: 12px;
+    gap: 12px;
+    border-radius: 8px;
     cursor: pointer;
-}
+    margin-top: 40px;
+  }
+  
+  .button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: -4px;
+    top: -1px;
+    margin: auto;
+    width: 128px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+    z-index: -10;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .button::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+  }
+  
+  .button:hover::after {
+    filter: blur(30px);
+  }
+  
+  .button:hover::before {
+    transform: rotate(-180deg);
+  }
+  
+  .button:active::before {
+    scale: 0.7;
+  }
+  
+  
+  @media screen and (max-width: 580px) {
+    .login_header h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .input_velocidade, .input_paredes {
+      font-size: 0.8em;
+    }
+  }

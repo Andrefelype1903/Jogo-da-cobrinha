@@ -8,35 +8,46 @@ const finalScore = document.querySelector('.final-score > span')
 const menu = document.querySelector('.menu-screen')
 const buttonPlay = document.querySelector('.btn-play')
 
-const spanPlayer = document.querySelector('.span_player > span')
+const spanPlayer = document.querySelector('.span_player > span');
 
-const player = localStorage.getItem('player');
+const speaker = document.querySelector('.checkbox');
+
+let somOn = true;
+
+if(speaker.checked) {
+    somOn = false
+}
+
+
+const player = sessionStorage.getItem('player');
 console.log(player)
 
 spanPlayer.innerText = player
 
 
-
 let velocidade = 300;
 let parede = true;
 
-const velocidadeRadio = localStorage.getItem('velocidade')
-const paredesSimNao = localStorage.getItem('paredesSimNao')
-const somOnOff = localStorage.getItem('somOnOff')
+const velocidadeRadio = sessionStorage.getItem('velocidade')
+const paredesSimNao = sessionStorage.getItem('paredesSimNao')
 
 if(paredesSimNao === 'nao') {
     parede = false
 }
 
+
 if(velocidadeRadio === 'lento') {
     velocidade = 300
-} else if(velocidadeRadio === 'medio') {
+} 
+
+if(velocidadeRadio === 'medio') {
     velocidade = 200
-} else if(velocidadeRadio === 'rapido') {
+} 
+
+if(velocidadeRadio === 'rapido') {
     velocidade = 100;
 }
 
-console.log(paredesSimNao)
 
 
 // botoes de direção
@@ -55,6 +66,8 @@ const initialPosition = { x: 195, y: 195 }
 
 
 let snake = [initialPosition];
+
+
 
 const incrementFast = () => {
     if(snake.length === 10) {
@@ -134,7 +147,9 @@ const drawSnake = () => {
 
 const moveSnake = () => {
 
-    incrementFast()
+    if(velocidadeRadio === 'lento' || velocidadeRadio === 'medio'){
+        incrementFast()
+    } 
 
     if(!direction) return;
     const head = snake[snake.length -1];
@@ -187,9 +202,16 @@ const checkEat = () => {
         incrementScore()
         snake.push(head)
 
-        if(somOnOff === 'sim') {
+        if(speaker.checked) {
+            somOn = false
+        } else {
+            somOn = true
+        }
+
+        if(somOn) {
             audio.play()
         }
+        
 
         let x = randomPosition();
         let y = randomPosition();
@@ -224,6 +246,8 @@ const checkEat = () => {
 //     }
     
 // }
+
+
 
 const checkCollision = () => {
     const head = snake[snake.length - 1];
@@ -263,12 +287,8 @@ const checkCollision = () => {
             if(snake[i].y < 0) {
                 snake[i].y = canvasLimit
             }
-    
         }
     }
-    
-
-
 }
 
 const gameOver = () => {

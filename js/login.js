@@ -14,21 +14,17 @@ nome.addEventListener('input', ( {target} ) => {
 
 formulario.addEventListener('submit', (event) => {
     event.preventDefault()
-    localStorage.setItem('player', nome.value)
+    sessionStorage.setItem('player', nome.value)
 
     const velocidade = document.querySelector('input[name="dificuldade"]:checked').value
 
     const paredeSimNao = document.querySelector('input[name="paredes"]:checked').value
 
-    const somOnOff = document.querySelector('input[name="som"]:checked').value
+    sessionStorage.setItem('velocidade', velocidade)
+    sessionStorage.setItem('paredesSimNao', paredeSimNao)
 
-    localStorage.setItem('velocidade', velocidade)
-    localStorage.setItem('paredesSimNao', paredeSimNao)
-    localStorage.setItem('somOnOff', somOnOff)
-
-    window.location = 'pages/game.html'
-
-
-    
-
+    setTimeout(() => {
+        window.location = 'pages/game.html'
+    },1000)
 })
+

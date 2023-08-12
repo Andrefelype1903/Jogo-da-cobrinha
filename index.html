@@ -19,24 +19,43 @@
             <h1>super snake</h1>
         </div>
 
-        <div class="form_control">
-            <input class="seu_nome" type="value" placeholder="seu nome">
-        </div>
+        <div class="main">
+            <input required="" type="value" class="input seu_nome">
+            <label>
+            <span class="span-name" style="transition-delay:0ms;left:0px">S</span>
+            <span class="span-name" style="transition-delay:75ms;left:20px">e</span>
+            <span class="span-name" style="transition-delay:150ms;left:33px">u</span>
+            <span class="span-name" style="transition-delay:225ms;left:47px"> </span>
+            <span class="span-name" style="transition-delay:300ms;left:56px">n</span>
+            <span class="span-name" style="transition-delay:375ms;left:72px">o</span>
+            <span class="span-name" style="transition-delay:450ms;left:85px">m</span>
+            <span class="span-name" style="transition-delay:525ms;left:110px">e</span>
+            <p style="position:absolute;left:-8px;top:-10px;font-size:24px;margin:10px;color:gray;transition:0.5s;pointer-events:none;">Seu nome</p>
+            </label>
+            </div>
 
-        <div class="radios">
+        <div class="radios radio-buttons-container">
 
             <h2>Escolha a velocidade do jogo</h2>
 
             <div class="input_velocidade">
 
-                <input type="radio" id="lento" name="dificuldade" value="lento" >
-                <label for="lento">lento</label>
+                <div class="radio-button">
+                    <input class="radio-button__input" type="radio" id="lento" name="dificuldade" value="lento" >
+                    <label class="radio-button__label" for="lento"><span class="radio-button__custom"></span>
+                        lento
+                    </label>
+                </div>
 
-                <input type="radio" id="medio" name="dificuldade" value="medio" checked>
-                <label for="medio">medio</label>
+                <div class="radio-button">
+                    <input class="radio-button__input" type="radio" id="medio" name="dificuldade" value="medio" >
+                    <label class="radio-button__label" for="medio"><span class="radio-button__custom"></span>medio</label>
+                </div>
 
-                <input type="radio" id="rapido" name="dificuldade" value="rapido" >
-                <label for="rapido">rapido</label>
+                <div class="radio-button">
+                    <input class="radio-button__input" type="radio" id="rapido" name="dificuldade" value="rapido" checked >
+                    <label class="radio-button__label" for="rapido"><span class="radio-button__custom"></span>rapido</label>
+                </div>
                 
             </div>
 
@@ -44,28 +63,21 @@
 
             <div class="input_paredes">
 
-                <input type="radio" id="sim" name="paredes" value="sim" checked>
-                <label for="sim">Sim</label>
+                <div class="radio-button">
+                    <input class="radio-button__input" type="radio" id="sim" name="paredes" value="sim" checked>
+                    <label class="radio-button__label" for="sim"><span class="radio-button__custom"></span>Sim</label>
+                </div>
 
-                <input type="radio" id="nao" name="paredes" value="nao">
-                <label for="nao">Não</label>
-
-            </div>
-
-            <h2>Som ao comer?</h2>
-
-            <div class="input_som">
-
-                <input type="radio" id="sim" name="som" value="sim" checked>
-                <label for="som">Sim</label>
-
-                <input type="radio" id="nao" name="som" value="nao">
-                <label for="som">Não</label>
+                <div class="radio-button">
+                    <input class="radio-button__input" type="radio" id="nao" name="paredes" value="nao">
+                    <label class="radio-button__label" for="nao"><span class="radio-button__custom"></span>Não</label>
+                </div>
 
             </div>
+
         </div>
 
-        <button type="submit" class="button_submit" disabled>começar</button>
+        <button type="submit" class="button_submit button" disabled>começar</button>
     </form>
     
 </body>

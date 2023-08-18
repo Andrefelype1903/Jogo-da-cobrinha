@@ -10,7 +10,19 @@ const buttonPlay = document.querySelector('.btn-play')
 
 const spanPlayer = document.querySelector('.span_player > span');
 
+
 const speaker = document.querySelector('.checkbox');
+
+
+// seletores do ranking ↓
+const primeiro = document.querySelector('.primeiro');
+const segundo = document.querySelector('.segundo');
+const terceiro = document.querySelector('.terceiro');
+const quarto = document.querySelector('.quarto');
+const quinto = document.querySelector('.quinto');
+
+// seletores do ranking ↑
+
 
 let somOn = true;
 
@@ -20,7 +32,50 @@ if(speaker.checked) {
 
 
 const player = sessionStorage.getItem('player');
-console.log(player)
+
+
+const arrayStringRecuperado  =  localStorage.getItem('rankingSnake')
+const todosPlayers = JSON.parse(arrayStringRecuperado);
+
+const playerGerais = []
+
+
+if(arrayStringRecuperado) {
+    playerGerais.push(todosPlayers);
+    todosPlayers.sort((a, b) => b.score - a.score);
+}
+
+console.log(todosPlayers)
+
+const escreveRanking = () => {
+  
+    if(arrayStringRecuperado) {
+
+        if(todosPlayers.length > 0) {
+            primeiro.style.background = 'rgb(250, 250, 250, 0.5)'
+            primeiro.textContent = `1°: ${todosPlayers[0].nome} //  ${todosPlayers[0].score} pontos`
+        }
+        if(todosPlayers.length > 1) {
+            segundo.style.background = 'rgb(250, 250, 250, 0.5)'
+            segundo.textContent = `2°: ${todosPlayers[1].nome} // ${todosPlayers[1].score} pontos`
+        }
+        if(todosPlayers.length > 2) {
+            terceiro.style.background = 'rgb(250, 250, 250, 0.5)'
+            terceiro.textContent = `3°: ${todosPlayers[2].nome} // ${todosPlayers[2].score} pontos`
+        }
+        if(todosPlayers.length > 3) {
+            quarto.style.background = 'rgb(250, 250, 250, 0.5)'
+            quarto.textContent = `4°: ${todosPlayers[3].nome} // ${todosPlayers[3].score} pontos`
+        }
+        if(todosPlayers.length > 4) {
+            quinto.style.background = 'rgb(250, 250, 250, 0.5)'
+            quinto.textContent = `5°: ${todosPlayers[4].nome} // ${todosPlayers[4].score} pontos`
+        }
+    }
+
+}
+
+
 
 spanPlayer.innerText = player
 
@@ -195,7 +250,9 @@ const drawGrid = () => {
 }
 
 const checkEat = () => {
-    const head = snake[snake.length -1];
+
+        const head = snake[snake.length -1];
+    
     // const neck = snake[snake.length - 2];
 
     if(head.x === food.x && head.y === food.y) {
@@ -229,26 +286,6 @@ const checkEat = () => {
 
 }
 
-// const checkCollision = () => {
-//     const head = snake[snake.length - 1];
-//     const canvasLimit = canvas.width - size;
-//     const neckIndex = snake.length - 2;
-
-//     const wallCollision = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit;
-
-//     const selfCollision = snake.find((position, index) => {
-//         return index < neckIndex && position.x === head.x && position.y === head.y
-//     })
-
-//     if(wallCollision || selfCollision) {
-//         gameOver()
-//         h1.innerText = "GAME OVER"
-//     }
-    
-// }
-
-
-
 const checkCollision = () => {
     const head = snake[snake.length - 1];
     const canvasLimit = canvas.width - size;
@@ -269,6 +306,7 @@ const checkCollision = () => {
     if(parede) {
         if(wallCollision) {
             gameOver()
+            return
         }
     } else {
         for(let i = 0; i < snake.length; i++) {
@@ -291,6 +329,9 @@ const checkCollision = () => {
     }
 }
 
+let executou = false
+
+
 const gameOver = () => {
     direction = undefined
 
@@ -298,7 +339,44 @@ const gameOver = () => {
     finalScore.innerText = score.innerText;
     canvas.style.filter = 'blur(2px)'
 
+
+    const jogadorAtual = {nome:player, score:finalScore.innerHTML};
+   
+
+    if(!executou) {
+
+        if(todosPlayers === null) {
+
+            primeiro.style.background = 'rgb(250, 250, 250, 0.5)'
+            primeiro.textContent = `1°: ${jogadorAtual.nome} //  ${jogadorAtual.score} pontos`
+
+            playerGerais.push(jogadorAtual);
+
+            const jogadorAtualString = JSON.stringify(playerGerais)
+            localStorage.setItem('rankingSnake', jogadorAtualString)
+
+    
+        } else {
+
+            todosPlayers.push(jogadorAtual)
+
+            todosPlayers.sort((a, b) => b.score - a.score);
+    
+            let arrayString = JSON.stringify(todosPlayers);
+    
+            localStorage.setItem('rankingSnake', arrayString)
+            escreveRanking()
+
+
+        }
+
+
+        executou = true
+
+    }
 }
+
+// localStorage.clear()
 
 const gameLoop = () => {
 
@@ -409,6 +487,9 @@ canvas.addEventListener('click', (event) => {
 })
 
 buttonPlay.addEventListener('click', () => {
+   
+    location.reload()
+
     score.innerText = '00';
     menu.style.display = 'none';
     canvas.style.filter = 'none';

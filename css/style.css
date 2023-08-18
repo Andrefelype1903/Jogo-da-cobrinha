@@ -182,7 +182,7 @@ canvas {
 
 .menu-screen {
     position: absolute;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1;
@@ -202,6 +202,15 @@ canvas {
 .ranking {
   display: flex;
   flex-direction: column;
+}
+
+.podium {
+  color: #111;
+  font-weight: 800;
+  padding: 8px;
+  margin: 1px;
+  border-radius: 10px;
+  font-size: 1.2em;
 }
 
 .btn-play {

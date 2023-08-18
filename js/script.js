@@ -176,6 +176,7 @@ const randomColor = () => {
 
 const food = {x:randomPosition() , y:randomPosition() , color: randomColor()}
 
+let controleDirecao = true
 let direction, loopId;
 
 const drowFood = () => {
@@ -334,6 +335,7 @@ let executou = false
 
 const gameOver = () => {
     direction = undefined
+    controleDirecao = false;
 
     menu.style.display = 'flex';
     finalScore.innerText = score.innerText;
@@ -404,85 +406,93 @@ const gameLoop = () => {
 gameLoop()
 
 cima.addEventListener('click', () => {
-    if(direction != "down") {
-        direction = "up"
+    if(controleDirecao === true) {
+        if(direction != "down") {
+            direction = "up"
+        }
     }
 })
 
 esquerda.addEventListener('click', () => {
+    if(controleDirecao === true) {
+        if(direction === undefined) return
     
-    if(direction === undefined) return
-
-    if(direction != "rigth") {
-        direction = "left"
+        if(direction != "rigth") {
+            direction = "left"
+        }
     }
 })
 
 direita.addEventListener('click', () => {
-    if(direction != "left" ) {
-        direction = "rigth"
+    if(controleDirecao === true) {
+        if(direction != "left" ) {
+            direction = "rigth"
+        }
     }
 })
 
 baixo.addEventListener('click', () => {
-    if(direction != "up") {
-        direction = "down"
+    if(controleDirecao === true) {
+        if(direction != "up") {
+            direction = "down"
+        }
     }
 })
 
 document.addEventListener('keydown', ({key}) => {
     // event.preventDefault()
-
-  if(key === 'ArrowUp' && direction != "down") {
-    direction = "up"
-  }
-  
-  if(key === 'ArrowLeft' && direction != "rigth" && direction != undefined) {
-    direction = "left"
-  }
-
-  if(key === 'ArrowRight' && direction != "left") {
-    direction = "rigth"
-  }
-
-  if(key === 'ArrowDown' && direction != "up") {
-    direction = "down"
-  }
-
+    if(controleDirecao === true) {
+        if(key === 'ArrowUp' && direction != "down") {
+          direction = "up"
+        }
+        
+        if(key === 'ArrowLeft' && direction != "rigth" && direction != undefined) {
+          direction = "left"
+        }
+      
+        if(key === 'ArrowRight' && direction != "left") {
+          direction = "rigth"
+        }
+      
+        if(key === 'ArrowDown' && direction != "up") {
+          direction = "down"
+        }
+    }
 })
 
 canvas.addEventListener('click', (event) => {
 
-
-    const rect = canvas.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-
-    const telaHorizontal = (event.clientX - rect.left) / width;
-    const telaVertical = (event.clientY - rect.top) / height;
-
-    const horizontal = telaHorizontal * 9 + 1
-    const vertical = telaVertical * 9 + 1
-
+    if(controleDirecao === true) {
+        const rect = canvas.getBoundingClientRect()
+        const width = rect.width
+        const height = rect.height
     
-    console.log("horizontal = " + horizontal)
-    console.log("vertical = " + vertical)
-
-    if(horizontal > 5.5 && direction != 'rigth' && direction != 'left') {
-        direction = 'rigth'
-        return
-    }
-    if(horizontal < 5.5 && direction != 'left' && direction != 'rigth' && direction != undefined) {
-        direction = 'left'
-        return
-    }
-    if(vertical > 5.5 && direction != 'down' && direction != 'up') {
-        direction = 'down'
-        return
-    }
-    if(vertical < 5.5 && direction != 'up' && direction != 'down') {
-        direction = 'up'
-        return
+        const telaHorizontal = (event.clientX - rect.left) / width;
+        const telaVertical = (event.clientY - rect.top) / height;
+    
+        const horizontal = telaHorizontal * 9 + 1
+        const vertical = telaVertical * 9 + 1
+    
+        
+        console.log("horizontal = " + horizontal)
+        console.log("vertical = " + vertical)
+    
+        if(horizontal > 5.5 && direction != 'rigth' && direction != 'left') {
+            direction = 'rigth'
+            return
+        }
+        if(horizontal < 5.5 && direction != 'left' && direction != 'rigth' && direction != undefined) {
+            direction = 'left'
+            return
+        }
+        if(vertical > 5.5 && direction != 'down' && direction != 'up') {
+            direction = 'down'
+            return
+        }
+        if(vertical < 5.5 && direction != 'up' && direction != 'down') {
+            direction = 'up'
+            return
+        }
     }
 })
 
@@ -494,6 +504,8 @@ buttonPlay.addEventListener('click', () => {
     menu.style.display = 'none';
     canvas.style.filter = 'none';
     snake = [initialPosition]
+
+    controleDirecao = true;
 
 })
 

@@ -152,8 +152,10 @@ const incrementScore = () => {
 
 // }
 
+
 // funçao reserva que gera  uma cor dentre opçoes definidas ↑
 
+// mudar as funcoes randomPosition e checkEat tambem ↑
 
 const randomNumber = (min, max) => {
     return Math.round(Math.random() * (max - min) + min);
@@ -508,5 +510,4 @@ buttonPlay.addEventListener('click', () => {
     controleDirecao = true;
 
 })
-
 

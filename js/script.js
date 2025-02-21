@@ -10,8 +10,26 @@ const buttonPlay = document.querySelector('.btn-play')
 
 const spanPlayer = document.querySelector('.span_player > span');
 
+const corpo = document.querySelector('body');
+const cabecalho = document.querySelector('.cabecalho');
+
+const menuScreen = document.querySelector('.menu-screen')
+
+const rodape = document.querySelector('.rodape')
+
 
 const speaker = document.querySelector('.checkbox');
+
+const TemaEscuroClaro = document.querySelector('.tema-escuro-claro');
+
+// botoes de direção
+const cima = document.querySelector('.cima')
+const esquerda = document.querySelector('.esquerda')
+const direita = document.querySelector('.direita')
+const baixo = document.querySelector('.baixo')
+
+const direcao = document.querySelector('.botoes')
+// botoes de direção
 
 
 // seletores do ranking ↓
@@ -30,6 +48,47 @@ if(speaker.checked) {
     somOn = false
 }
 
+
+let temaClaro;
+let corGrid = '#191919';
+let corSnakeHead = '#fff';
+let corSnakeBody = '#ddd'
+
+TemaEscuroClaro.addEventListener('click', () => {
+
+    if(!TemaEscuroClaro.checked) {
+        temaClaro = true;
+        corGrid = '#fff';
+        corSnakeHead = '#000';
+        corSnakeBody = '#444'
+    } else {
+        temaClaro = false;
+        corGrid = '#191919'
+        corSnakeHead = '#fff'
+        corSnakeBody = '#ddd'
+    }
+    console.log(temaClaro);
+
+    if(temaClaro === true) {
+        corpo.style.backgroundColor = '#fafafa';
+        cabecalho.style.color = '#000';
+        canvas.style.backgroundColor = '#fafafa';
+        canvas.style.border = '1px solid #000';
+        direcao.style.color = '#000';
+        rodape.style.color = '#000'
+
+
+    } else if(temaClaro === false) {
+        corpo.style.backgroundColor = '#191919';
+        cabecalho.style.color = '#fff';
+        canvas.style.backgroundColor = '#111';
+        canvas.style.border = '1px solid #fff';
+        direcao.style.color = '#fff';
+        rodape.style.color = '#fff'
+
+    }
+
+})
 
 const player = sessionStorage.getItem('player');
 
@@ -105,12 +164,7 @@ if(velocidadeRadio === 'rapido') {
 
 
 
-// botoes de direção
-const cima = document.querySelector('.cima')
-const esquerda = document.querySelector('.esquerda')
-const direita = document.querySelector('.direita')
-const baixo = document.querySelector('.baixo')
-// botoes de direção
+
 
 const size = 15;
 
@@ -143,14 +197,14 @@ const incrementScore = () => {
 
 // funçao reserva que gera  uma cor dentre opçoes definidas ↓
 
-// const GeraCorAleatoria = () => {
-//     const cores = ['cyan', 'yellow', 'red', 'orange', 'magenta', 'green', 'darkviolet', 'salmon'];
+/* const randomColor = () => {
+    const cores = ['cyan', 'yellow', 'red', 'orange', 'magenta', 'green', 'darkviolet', 'salmon'];
 
-//     let corAleatoria = cores[Math.round(Math.random() * cores.length)]
+    let corAleatoria = cores[Math.round(Math.random() * cores.length)]
 
-//     return corAleatoria
+    return corAleatoria
 
-// }
+} */
 
 
 // funçao reserva que gera  uma cor dentre opçoes definidas ↑
@@ -194,10 +248,12 @@ const drowFood = () => {
 
 
 const drawSnake = () => {
-    ctx.fillStyle = '#ddd';
+    // ctx.fillStyle = '#ddd';
+    ctx.fillStyle = corSnakeBody;
     snake.forEach((position, index) => {
         if(index === snake.length -1) {
-            ctx.fillStyle = '#fff';
+            // ctx.fillStyle = '#fff';
+            ctx.fillStyle = corSnakeHead;
         }
         ctx.fillRect(position.x, position.y, size, size);
     })
@@ -234,7 +290,7 @@ const moveSnake = () => {
 
 const drawGrid = () => {
   ctx.lineWidth = 1;
-  ctx.strokeStyle = "#191919";
+  ctx.strokeStyle = corGrid;
 
 
   for(let i = 15; i < canvas.width; i += size) {

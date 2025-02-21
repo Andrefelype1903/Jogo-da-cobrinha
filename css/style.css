@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
     /* max-height: 100vh; */
     margin: auto;
+   /*  background-color: #fafafa; */
     background-color: #191919;
     /* background-color: #fff; */
     display: flex;
@@ -22,6 +23,7 @@ body {
     justify-content: center;
     color: #fff;
 }
+
 
 header {
     width: 100vw;
@@ -37,91 +39,7 @@ header {
     font-size: 1rem;
 }
 
-/* toggle ↓ */
 
-/* The switch - the box around the speaker*/
-
-.toggle {
-  padding: 5px;
-}
-
-.toggleSwitch {
-    width: 50px;
-    height: 50px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(39, 39, 39);
-    border-radius: 50%;
-    cursor: pointer;
-    transition-duration: .3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
-    overflow: hidden;
-  }
-  
-  /* Hide default HTML checkbox */
-  #checkboxInput {
-    display: none;
-  }
-  
-  .bell {
-    width: 18px;
-  }
-  
-  .bell path {
-    fill: white;
-  }
-  
-  .speaker {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    transition-duration: .3s;
-  }
-  
-  .speaker svg {
-    width: 18px;
-  }
-  
-  .mute-speaker {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    z-index: 3;
-    transition-duration: .3s;
-  }
-  
-  .mute-speaker svg {
-    width: 18px;
-  }
-  
-  #checkboxInput:checked +.toggleSwitch .speaker {
-    opacity: 0;
-    transition-duration: .3s;
-  }
-  
-  #checkboxInput:checked +.toggleSwitch .mute-speaker {
-    opacity: 1;
-    transition-duration: .3s;
-  }
-  
-  #checkboxInput:active + .toggleSwitch {
-    transform: scale(0.7);
-  }
-  
-  #checkboxInput:hover + .toggleSwitch {
-    background-color: rgb(61, 61, 61);
-  }
-
-/* toggle ↑ */
 
 .velocidade, .parede {
     display: flex;
@@ -186,6 +104,7 @@ canvas {
     flex-direction: column;
     align-items: center;
     z-index: 1;
+    color: #ff0000;
 }
 
 .game-over {
